@@ -1,26 +1,57 @@
-;
+const CHOICES = ["ROCK", "PAPER", "SCISSORS"];
 
-function getComputerChoice() {
-    const CHOICES = ["Rock", "Paper", "Scissors"];
+let playerSelection = '';
+let computerSelection = '';
+
+
+
+function getComputerChoice(CHOICES) {
     return CHOICES[Math.floor(Math.random() * 3)]
 }
 
+function getResultOfRound(playerSelection, computerSelection){
+
+    let win = (playerSelection.toUpperCase() === "ROCK" && computerSelection === "SCISSORS")
+        || (playerSelection.toUpperCase() === "SCISSORS" && computerSelection === "PAPER")
+        || (playerSelection.toUpperCase() === "PAPER" && computerSelection === "ROCK");
+
+    let draw = playerSelection.toUpperCase() === computerSelection;
+
+    let lose = !win && !draw;
+
+    if (win) return "win" ;
+    if (lose) return "lose" ;
+    if (draw) return "draw" ;
+
+}
+
 function playRound(playerSelection, computerSelection) {
-    let win = (playerSelection.toUpperCase() === "ROCK" && computerSelection.toUpperCase() === "SCISSORS")
-        || (playerSelection.toUpperCase() === "SCISSORS" && computerSelection.toUpperCase() === "PAPER")
-        || (playerSelection.toUpperCase() === "PAPER" && computerSelection.toUpperCase() === "ROCK") ;
-    let draw = playerSelection.toUpperCase() === computerSelection.toUpperCase() ;
 
-    let lose = !win && !draw ;
+    let result=getResultOfRound(playerSelection,computerSelection);
 
-    if (win){
-        return `You win ! ${playerSelection.toUpperCase()} beats ${computerSelection.toUpperCase()} !!`
+    if (result==="win") {
+        return `You win ! ${playerSelection.toUpperCase()} beats ${computerSelection} !!`
     }
-    else if (lose) {
-        return `You lose ! ${computerSelection.toUpperCase()} beats ${playerSelection.toUpperCase()} !!`
+    else if (result==="lose") {
+        return `You lose ! ${computerSelection} beats ${playerSelection.toUpperCase()} !!`
     }
-    else{
-        return 'It\'s a DRAW' ;
+    else {
+        return 'It\'s a DRAW';
     }
 
 }
+
+function game(CHOICES) {
+    playerSelection = prompt('select a weapon', '');
+    computerSelection = getComputerChoice(CHOICES);
+    console.log(computerSelection)
+
+    console.log(playRound(playerSelection, computerSelection))
+
+}
+game(CHOICES);
+
+
+
+
+
