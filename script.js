@@ -2,8 +2,6 @@ const CHOICES = ["ROCK", "PAPER", "SCISSORS"];
 
 
 
-
-
 function getComputerChoice(CHOICES) {
     return CHOICES[Math.floor(Math.random() * 3)]
 }
@@ -40,12 +38,21 @@ function playRound(playerSelection, computerSelection) {
 
 }
 
+function isInArray(playerSelection, CHOICES) {
+    return CHOICES.indexOf(playerSelection.toUpperCase()) > -1;
+}
+
 function game(CHOICES) {
 
     let computerScore = 0;
     let playerScroe = 0;
     for (let i = 0; i < 5; i++) {
+
         let playerSelection = prompt('select a weapon', '');
+        while (!isInArray(playerSelection, CHOICES)) {
+            playerSelection = prompt('bb', '');
+        }
+
         let computerSelection = getComputerChoice(CHOICES);
 
         let result = getResultOfRound(playerSelection, computerSelection);
