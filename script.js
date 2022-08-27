@@ -6,6 +6,14 @@ function getComputerChoice(CHOICES) {
     return CHOICES[Math.floor(Math.random() * 3)]
 }
 
+function getPlayerChoice() {
+    let playerSelection = prompt('Select a weapon', '');
+    while (!isInArray(playerSelection, CHOICES)) {
+        playerSelection = prompt('Weapon not available \nSelect a weapon', '');
+    }
+    return playerSelection;
+}
+
 function getResultOfRound(playerSelection, computerSelection) {
 
     let win = (playerSelection.toUpperCase() === "ROCK" && computerSelection === "SCISSORS")
@@ -46,14 +54,13 @@ function game(CHOICES) {
 
     let computerScore = 0;
     let playerScroe = 0;
-    for (let i = 0; i < 5; i++) {
 
-        let playerSelection = prompt('select a weapon', '');
-        while (!isInArray(playerSelection, CHOICES)) {
-            playerSelection = prompt('bb', '');
-        }
+    for (let i = 0; i < 5; i++) {
+        
 
         let computerSelection = getComputerChoice(CHOICES);
+        let playerSelection = getPlayerChoice();
+
 
         let result = getResultOfRound(playerSelection, computerSelection);
 
@@ -70,6 +77,15 @@ function game(CHOICES) {
         console.log(playRound(playerSelection, computerSelection));
 
         console.log(`COMPUTER : ${computerScore}           PLAYER: ${playerScroe}`);
+
+        if (computerScore===3){
+            console.log('You lose !')
+            return ;
+        }
+        if (playerScroe ===3){
+            console.log('CONGRATS ! You win !!!')
+            return ;
+        }
 
     }
 
