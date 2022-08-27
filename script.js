@@ -8,6 +8,8 @@ function getComputerChoice(CHOICES) {
 
 function getPlayerChoice() {
     let playerSelection = prompt('Select a weapon', '');
+    
+    if (playerSelection==null) return ;
     while (!isInArray(playerSelection, CHOICES)) {
         playerSelection = prompt('Weapon not available \nSelect a weapon', '');
     }
@@ -60,6 +62,8 @@ function game(CHOICES) {
 
         let computerSelection = getComputerChoice(CHOICES);
         let playerSelection = getPlayerChoice();
+
+        if (playerSelection==null) return ;
 
 
         let result = getResultOfRound(playerSelection, computerSelection);
