@@ -1,7 +1,6 @@
 const CHOICES = ["ROCK", "PAPER", "SCISSORS"];
 
-let playerSelection = '';
-let computerSelection = '';
+
 
 
 
@@ -9,7 +8,7 @@ function getComputerChoice(CHOICES) {
     return CHOICES[Math.floor(Math.random() * 3)]
 }
 
-function getResultOfRound(playerSelection, computerSelection){
+function getResultOfRound(playerSelection, computerSelection) {
 
     let win = (playerSelection.toUpperCase() === "ROCK" && computerSelection === "SCISSORS")
         || (playerSelection.toUpperCase() === "SCISSORS" && computerSelection === "PAPER")
@@ -19,20 +18,20 @@ function getResultOfRound(playerSelection, computerSelection){
 
     let lose = !win && !draw;
 
-    if (win) return "win" ;
-    if (lose) return "lose" ;
-    if (draw) return "draw" ;
+    if (win) return "win";
+    if (lose) return "lose";
+    if (draw) return "draw";
 
 }
 
 function playRound(playerSelection, computerSelection) {
 
-    let result=getResultOfRound(playerSelection,computerSelection);
+    let result = getResultOfRound(playerSelection, computerSelection);
 
-    if (result==="win") {
+    if (result === "win") {
         return `You win ! ${playerSelection.toUpperCase()} beats ${computerSelection} !!`
     }
-    else if (result==="lose") {
+    else if (result === "lose") {
         return `You lose ! ${computerSelection} beats ${playerSelection.toUpperCase()} !!`
     }
     else {
@@ -42,11 +41,31 @@ function playRound(playerSelection, computerSelection) {
 }
 
 function game(CHOICES) {
-    playerSelection = prompt('select a weapon', '');
-    computerSelection = getComputerChoice(CHOICES);
-    console.log(computerSelection)
 
-    console.log(playRound(playerSelection, computerSelection))
+    let computerScore = 0;
+    let playerScroe = 0;
+    for (let i = 0; i < 5; i++) {
+        let playerSelection = prompt('select a weapon', '');
+        let computerSelection = getComputerChoice(CHOICES);
+
+        let result = getResultOfRound(playerSelection, computerSelection);
+
+        if (result === "win") {
+            playerScroe += 1;
+        }
+        if (result === "lose") {
+            computerScore += 1;
+        }
+        if (result === "draw") {
+            i -= 1;
+        }
+
+        console.log(playRound(playerSelection, computerSelection));
+
+        console.log(`COMPUTER : ${computerScore}           PLAYER: ${playerScroe}`);
+
+    }
+
 
 }
 game(CHOICES);
