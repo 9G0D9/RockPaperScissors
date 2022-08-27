@@ -12,6 +12,7 @@ function getPlayerChoice() {
     if (playerSelection==null) return ;
     while (!isInArray(playerSelection, CHOICES)) {
         playerSelection = prompt('Weapon not available \nSelect a weapon', '');
+        if (playerSelection==null) return ;
     }
     return playerSelection;
 }
