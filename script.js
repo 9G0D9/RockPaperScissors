@@ -53,49 +53,6 @@ function isInArray(playerSelection, CHOICES) {
     return CHOICES.indexOf(playerSelection.toUpperCase()) > -1;
 }
 
-// function game(CHOICES) {
-
-//     let computerScore = 0;
-//     let playerScroe = 0;
-
-//     for (let i = 0; i < 5; i++) {
-
-
-//         let computerSelection = getComputerChoice(CHOICES);
-//         let playerSelection = getPlayerChoice();
-
-//         if (playerSelection==null) return ;
-
-
-//         let result = getResultOfRound(playerSelection, computerSelection);
-
-//         if (result === "win") {
-//             playerScroe += 1;
-//         }
-//         if (result === "lose") {
-//             computerScore += 1;
-//         }
-//         if (result === "draw") {
-//             i -= 1;
-//         }
-
-//         console.log(playRound(playerSelection, computerSelection));
-
-//         console.log(`COMPUTER : ${computerScore}           PLAYER: ${playerScroe}`);
-
-//         if (computerScore===3){
-//             console.log('You lose !')
-//             return ;
-//         }
-//         if (playerScroe ===3){
-//             console.log('CONGRATS ! You win !!!')
-//             return ;
-//         }
-
-//     }
-
-
-//}
 const buttons = document.querySelectorAll('button');
 const div = document.querySelector('.result');
 
@@ -104,19 +61,18 @@ let playerScroe = 0;
 
 let round = document.createElement('p');
 let score = document.createElement('p');
-let finalResult=document.createElement('p') ;
+let finalResult = document.createElement('p');
 
 buttons.forEach((button) => {
     button.addEventListener("click", () => {
 
-        finalResult.textContent=''
+        finalResult.textContent = ''
 
-        
+
         playerSelection = button.textContent;
         computerSelection = getComputerChoice();
 
         let result = getResultOfRound(playerSelection, computerSelection);
-
 
 
         if (result === "win") {
@@ -133,21 +89,21 @@ buttons.forEach((button) => {
         div.appendChild(score);
 
         if (computerScore === 3) {
-            finalResult.textContent = ('You lose !') ;
-            div.appendChild(finalResult) ;
-            playerScroe=0 ;
-            computerScore=0 ;
-            
+            finalResult.textContent = ('You lose !');
+            div.appendChild(finalResult);
+            playerScroe = 0;
+            computerScore = 0;
+
         }
         if (playerScroe === 3) {
             finalResult.textContent = ('CONGRATS ! You win !!!')
-            div.appendChild(finalResult) ;
-            playerScroe=0 ;
-            computerScore=0 ;
+            div.appendChild(finalResult);
+            playerScroe = 0;
+            computerScore = 0;
 
         }
-    }
-    )
+    })
+
 })
 
 
