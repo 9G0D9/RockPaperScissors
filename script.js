@@ -97,19 +97,59 @@ function isInArray(playerSelection, CHOICES) {
 
 //}
 const buttons = document.querySelectorAll('button');
-const div = document.querySelector('.result') ;
+const div = document.querySelector('.result');
 
+let computerScore = 0;
+let playerScroe = 0;
+
+let round = document.createElement('p');
+let score = document.createElement('p');
+let finalResult=document.createElement('p') ;
 
 buttons.forEach((button) => {
     button.addEventListener("click", () => {
-        let computerScore = 0;
-        let playerScroe = 0;
 
+        finalResult.textContent=''
+
+        
         playerSelection = button.textContent;
         computerSelection = getComputerChoice();
 
-    })
+        let result = getResultOfRound(playerSelection, computerSelection);
+
+
+
+        if (result === "win") {
+            playerScroe += 1;
+        }
+        if (result === "lose") {
+            computerScore += 1;
+        }
+
+        round.textContent = playRound(playerSelection, computerSelection);
+        score.textContent = `COMPUTER : ${computerScore}           PLAYER: ${playerScroe}`;
+
+        div.appendChild(round);
+        div.appendChild(score);
+
+        if (computerScore === 3) {
+            finalResult.textContent = ('You lose !') ;
+            div.appendChild(finalResult) ;
+            playerScroe=0 ;
+            computerScore=0 ;
+            
+        }
+        if (playerScroe === 3) {
+            finalResult.textContent = ('CONGRATS ! You win !!!')
+            div.appendChild(finalResult) ;
+            playerScroe=0 ;
+            computerScore=0 ;
+
+        }
+    }
+    )
 })
+
 
 
 
