@@ -2,7 +2,7 @@ const CHOICES = ["ROCK", "PAPER", "SCISSORS"];
 
 
 
-function getComputerChoice(CHOICES) {
+function getComputerChoice() {
     return CHOICES[Math.floor(Math.random() * 3)]
 }
 
@@ -96,13 +96,20 @@ function isInArray(playerSelection, CHOICES) {
 
 
 //}
-const rockSelction = document.querySelector('.ROCK');
-const paperSelction = document.querySelector('.PAPER');
-const scissorsSelction = document.querySelector('.SCISSORS');
+const buttons = document.querySelectorAll('button');
+const div = document.querySelector('.result') ;
 
-rockSelction.addEventListener("click", ()=> console.log(playRound('ROCK', getComputerChoice(CHOICES))));
-paperSelction.addEventListener('click', ()=>console.log(playRound('PAPER', getComputerChoice(CHOICES))))
-scissorsSelction.addEventListener('click', ()=>console.log(playRound('SCISSORS', getComputerChoice(CHOICES))))
+
+buttons.forEach((button) => {
+    button.addEventListener("click", () => {
+        let computerScore = 0;
+        let playerScroe = 0;
+
+        playerSelection = button.textContent;
+        computerSelection = getComputerChoice();
+
+    })
+})
 
 
 
