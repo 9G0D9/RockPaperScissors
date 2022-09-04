@@ -53,6 +53,7 @@ const div = document.querySelector(".box");
 
 let computerScore = 0;
 let playerScore = 0;
+let nb = 0;
 
 let round = document.createElement("p");
 let score = document.createElement("div");
@@ -64,6 +65,12 @@ score.style.cssText = "display : flex  ; justify-content : space-evenly ";
 
 buttons.forEach((button) => {
   button.addEventListener("click", () => {
+    if (nb == 0) {
+      while (div.lastChild) {
+        div.removeChild(div.lastChild);
+      }
+    }
+    nb += 1;
     finalResult.textContent = "";
 
     playerSelection = button.alt;
@@ -89,6 +96,7 @@ buttons.forEach((button) => {
     div.classList.add("result");
 
     div.appendChild(round);
+
     score.appendChild(playScore);
     score.appendChild(compScore);
     div.appendChild(score);
@@ -101,6 +109,7 @@ buttons.forEach((button) => {
       div.appendChild(finalResult);
       playerScore = 0;
       computerScore = 0;
+      nb= 0;
     }
     if (playerScore === 3) {
       finalResult.textContent = "CONGRATS ! You win !!!";
@@ -108,6 +117,7 @@ buttons.forEach((button) => {
       div.appendChild(finalResult);
       playerScore = 0;
       computerScore = 0;
+      nb=0 ;
     }
   });
 });
