@@ -49,7 +49,7 @@ function isInArray(playerSelection, CHOICES) {
 }
 
 const buttons = document.querySelectorAll(".button");
-const div = document.querySelector(".result");
+const div = document.querySelector(".box");
 
 let computerScore = 0;
 let playerScore = 0;
@@ -86,11 +86,14 @@ buttons.forEach((button) => {
     playScore.style.cssText = "font-size:30px ";
     compScore.style.cssText = "font-size:30px ";
 
+    div.classList.add("result");
+
     div.appendChild(round);
     score.appendChild(playScore);
     score.appendChild(compScore);
     div.appendChild(score);
-    
+
+    div.scrollIntoView();
 
     if (computerScore === 3) {
       finalResult.textContent = "BOOHOOO ! You lose !";
