@@ -1,116 +1,110 @@
 const CHOICES = ["ROCK", "PAPER", "SCISSORS"];
 
-
-
 function getComputerChoice() {
-    return CHOICES[Math.floor(Math.random() * 3)]
+  return CHOICES[Math.floor(Math.random() * 3)];
 }
 
 function getPlayerChoice() {
-    let playerSelection = prompt('Select a weapon', '');
+  let playerSelection = prompt("Select a weapon", "");
 
+  if (playerSelection == null) return;
+  while (!isInArray(playerSelection, CHOICES)) {
+    playerSelection = prompt("Weapon not available \nSelect a weapon", "");
     if (playerSelection == null) return;
-    while (!isInArray(playerSelection, CHOICES)) {
-        playerSelection = prompt('Weapon not available \nSelect a weapon', '');
-        if (playerSelection == null) return;
-    }
-    return playerSelection;
+  }
+  return playerSelection;
 }
 
 function getResultOfRound(playerSelection, computerSelection) {
+  let win =
+    (playerSelection.toUpperCase() === "ROCK" &&
+      computerSelection === "SCISSORS") ||
+    (playerSelection.toUpperCase() === "SCISSORS" &&
+      computerSelection === "PAPER") ||
+    (playerSelection.toUpperCase() === "PAPER" && computerSelection === "ROCK");
 
-    let win = (playerSelection.toUpperCase() === "ROCK" && computerSelection === "SCISSORS")
-        || (playerSelection.toUpperCase() === "SCISSORS" && computerSelection === "PAPER")
-        || (playerSelection.toUpperCase() === "PAPER" && computerSelection === "ROCK");
+  let draw = playerSelection.toUpperCase() === computerSelection;
 
-    let draw = playerSelection.toUpperCase() === computerSelection;
+  let lose = !win && !draw;
 
-    let lose = !win && !draw;
-
-    if (win) return "win";
-    if (lose) return "lose";
-    if (draw) return "draw";
-
+  if (win) return "win";
+  if (lose) return "lose";
+  if (draw) return "draw";
 }
 
 function playRound(playerSelection, computerSelection) {
+  let result = getResultOfRound(playerSelection, computerSelection);
+
+  if (result === "win") {
+    return `You win ! ${playerSelection.toUpperCase()} beats ${computerSelection} !!`;
+  } else if (result === "lose") {
+    return `You lose ! ${computerSelection} beats ${playerSelection.toUpperCase()} !!`;
+  } else {
+    return "It's a DRAW";
+  }
+}
+
+function isInArray(playerSelection, CHOICES) {
+  return CHOICES.indexOf(playerSelection.toUpperCase()) > -1;
+}
+
+const buttons = document.querySelectorAll(".button");
+const div = document.querySelector(".result");
+
+let computerScore = 0;
+let playerScore = 0;
+
+let round = document.createElement("p");
+let score = document.createElement("div");
+let playScore = document.createElement("p");
+let compScore = document.createElement("p");
+let finalResult = document.createElement("p");
+
+score.style.cssText = "display : flex  ; justify-content : space-evenly ";
+
+buttons.forEach((button) => {
+  button.addEventListener("click", () => {
+    finalResult.textContent = "";
+
+    playerSelection = button.alt;
+    computerSelection = getComputerChoice();
 
     let result = getResultOfRound(playerSelection, computerSelection);
 
     if (result === "win") {
-        return `You win ! ${playerSelection.toUpperCase()} beats ${computerSelection} !!`
+      playerScore += 1;
     }
-    else if (result === "lose") {
-        return `You lose ! ${computerSelection} beats ${playerSelection.toUpperCase()} !!`
-    }
-    else {
-        return 'It\'s a DRAW';
+    if (result === "lose") {
+      computerScore += 1;
     }
 
-}
+    round.textContent = playRound(playerSelection, computerSelection);
+    playScore.textContent = ` PLAYER : ${playerScore}           `;
+    compScore.textContent = ` COMPUTER : ${computerScore}`;
 
-function isInArray(playerSelection, CHOICES) {
-    return CHOICES.indexOf(playerSelection.toUpperCase()) > -1;
-}
+    round.style.cssText = "font-size:50px ;  align-self:center;";
+    playScore.style.cssText = "font-size:30px ";
+    compScore.style.cssText = "font-size:30px ";
 
-const buttons = document.querySelectorAll('button');
-const div = document.querySelector('.result');
+    div.appendChild(round);
+    score.appendChild(playScore);
+    score.appendChild(compScore);
+    div.appendChild(score);
+    
 
-let computerScore = 0;
-let playerScroe = 0;
-
-let round = document.createElement('p');
-let score = document.createElement('p');
-let finalResult = document.createElement('p');
-
-buttons.forEach((button) => {
-    button.addEventListener("click", () => {
-
-        finalResult.textContent = ''
-
-
-        playerSelection = button.textContent;
-        computerSelection = getComputerChoice();
-
-        let result = getResultOfRound(playerSelection, computerSelection);
-
-
-        if (result === "win") {
-            playerScroe += 1;
-        }
-        if (result === "lose") {
-            computerScore += 1;
-        }
-
-        round.textContent = playRound(playerSelection, computerSelection);
-        score.textContent = `COMPUTER : ${computerScore}           PLAYER: ${playerScroe}`;
-
-        div.appendChild(round);
-        div.appendChild(score);
-
-        if (computerScore === 3) {
-            finalResult.textContent = ('You lose !');
-            div.appendChild(finalResult);
-            playerScroe = 0;
-            computerScore = 0;
-
-        }
-        if (playerScroe === 3) {
-            finalResult.textContent = ('CONGRATS ! You win !!!')
-            div.appendChild(finalResult);
-            playerScroe = 0;
-            computerScore = 0;
-
-        }
-    })
-
-})
-
-
-
-
-
-
-
-
-
+    if (computerScore === 3) {
+      finalResult.textContent = "BOOHOOO ! You lose !";
+      finalResult.style.cssText = "font-size:50px ; align-self:center;";
+      div.appendChild(finalResult);
+      playerScore = 0;
+      computerScore = 0;
+    }
+    if (playerScore === 3) {
+      finalResult.textContent = "CONGRATS ! You win !!!";
+      finalResult.style.cssText = "font-size:50px ; align-self:center;";
+      div.appendChild(finalResult);
+      playerScore = 0;
+      computerScore = 0;
+    }
+  });
+});
